@@ -1,6 +1,11 @@
 <div align="center">
   <h1 align="center">Footfetch</h1>
+  <p>
+   CLI utility for viewing system information, but with a twist.
+  </p>
 </div>
+
+---
 
 ## Screenshots
 
