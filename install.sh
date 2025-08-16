@@ -1,54 +1,38 @@
 #!/bin/bash
 
+# Configuration
 REPO_NAME="footfetch"
 INSTALL_DIR="/usr/local/bin"
-REPO_URL="https://github.com/aidendev0/$REPO_NAME.git"
+DOWNLOAD_URL="https://github.com/lobotomydev/footfetch/releases/download/1.0.0/footfetch"
+TEMP_FILE="/tmp/$REPO_NAME"
 
 # --- MAIN LOGIC ---
 
 echo "Starting installation of $REPO_NAME"
 
-if ! command -v git &> /dev/null
-then
-    echo "Error: git is not installed. Please install it."
+# Check for curl
+if ! command -v curl &> /dev/null; then
+    echo "Error: curl is not installed. Please install it to continue."
     exit 1
 fi
 
-if ! command -v gcc &> /dev/null
-then
-    echo "Error: gcc is not installed. Please install it."
-    exit 1
-fi
-
-echo "Cloning the repository..."
-git clone "$REPO_URL" "$REPO_NAME"
+echo "Downloading package..."
+curl -L -o "$TEMP_FILE" "$DOWNLOAD_URL"
 
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to clone the repository."
-    exit 1
-fi
-
-echo "Building the project..."
-cd "$REPO_NAME"
-gcc -o footfetch footfetch.c
-
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to build the project."
+    echo "Error: Failed to download the file from $DOWNLOAD_URL."
     exit 1
 fi
 
 echo "Installing the executable to $INSTALL_DIR..."
-sudo mv "$REPO_NAME" "$INSTALL_DIR/"
+sudo mv "$TEMP_FILE" "$INSTALL_DIR/$REPO_NAME"
 
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to move the executable."
+    echo "Error: Failed to move the executable. Check your permissions."
     exit 1
 fi
 
+# Make the executable runnable
 sudo chmod +x "$INSTALL_DIR/$REPO_NAME"
-
-echo "Cleaning up temporary files..."
-cd ..
-rm -rf "$REPO_NAME"
 
 echo "Installation of $REPO_NAME is complete! You can now run the program by typing '$REPO_NAME' in your terminal."
