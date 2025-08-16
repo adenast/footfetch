@@ -20,7 +20,7 @@
 ### Quick install
 
 ```bash
-curl -o install.sh https://raw.githubusercontent.com/aidendev0/footfetch/main/install.sh
+curl -o install.sh https://raw.githubusercontent.com/lobotomydev/footfetch/main/install.sh
 chmod +x install.sh
 ./install.sh
 rm install.sh
@@ -31,7 +31,7 @@ rm install.sh
 ## Uninstall
 
 ```bash
-curl -o uninstall.sh https://raw.githubusercontent.com/aidendev0/footfetch/main/uninstall.sh
+curl -o uninstall.sh https://raw.githubusercontent.com/lobotomydev/footfetch/main/uninstall.sh
 chmod +x uninstall.sh
 ./uninstall.sh
 rm uninstall.sh
