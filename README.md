@@ -13,37 +13,9 @@
 
 ---
 
-## Installation
+## Installation, Usage and How to build
 
-> **⚠️ Important:** The project requires **GCC** and **Curl** to install.
-
-### Quick install
-
-```bash
-curl -o install.sh https://raw.githubusercontent.com/lobotomydev/footfetch/main/install.sh
-chmod +x install.sh
-./install.sh
-rm install.sh
-```
-
----
-
-## Uninstall
-
-```bash
-curl -o uninstall.sh https://raw.githubusercontent.com/lobotomydev/footfetch/main/uninstall.sh
-chmod +x uninstall.sh
-./uninstall.sh
-rm uninstall.sh
-```
-
----
-
-## Usage
-
-```bash
-footfetch
-```
+**Check** the [wiki](https://github.com/lobotomydev/footfetch/wiki).
 
 ---
 
