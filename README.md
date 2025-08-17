@@ -21,6 +21,6 @@
 
 ## LICENSE
 
-This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/aidendev0/footfetch/blob/main/LICENSE.md).
+This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/lobotomydev/footfetch/blob/main/LICENSE.md).
 
 ---
