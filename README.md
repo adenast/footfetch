@@ -9,7 +9,7 @@
 
 ## Screenshots
 
-<p align="center"> <img src="https://raw.githubusercontent.com/aidendev0/footfetch/main/images/screenshot.png" alt="Screenshot" width="600"> </p>
+<p align="center"> <img src="https://raw.githubusercontent.com/lobotomydev/footfetch/main/images/screenshot.png" alt="Screenshot" width="600"> </p>
 
 ---
 
