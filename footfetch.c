@@ -7,21 +7,26 @@
 #include <pwd.h>
 
 #define MAX_LINE_LENGTH 256
-#define RESET "\033[0m"
-#define BOLD "\033[1m"
-#define CYAN "\033[36m"
-#define GREEN "\033[32m"
-#define YELLOW "\033[33m"
-#define BLUE "\033[34m"
-#define MAGENTA "\033[35m"
+#define RESET   "\033[0m"
+#define BOLD    "\033[1m"
+#define CYAN    "\033[36m"
+#define YELLOW  "\033[33m"
 
-char* get_distro() {
-    FILE *fp;
-    static char distro[MAX_LINE_LENGTH] = "Unknown";
-    char line[MAX_LINE_LENGTH];
-    
-    fp = fopen("/etc/os-release", "r");
-    if (fp != NULL) {
+typedef struct {
+    char distro[MAX_LINE_LENGTH];
+    char kernel[MAX_LINE_LENGTH];
+    char uptime[MAX_LINE_LENGTH];
+    char shell[MAX_LINE_LENGTH];
+    char cpu[MAX_LINE_LENGTH];
+    char gpu[MAX_LINE_LENGTH];
+    char de_wm[MAX_LINE_LENGTH];
+    char mem_info[MAX_LINE_LENGTH];
+} FetchData;
+
+void get_distro(char *distro) {
+    FILE *fp = fopen("/etc/os-release", "r");
+    if (fp) {
+        char line[MAX_LINE_LENGTH];
         while (fgets(line, sizeof(line), fp)) {
             if (strncmp(line, "PRETTY_NAME=", 12) == 0) {
                 char *start = strchr(line, '"');
@@ -35,111 +40,97 @@ char* get_distro() {
             }
         }
         fclose(fp);
-        return distro;
+    } else {
+        strcpy(distro, "Linux");
     }
-    
-    fp = fopen("/etc/issue", "r");
-    if (fp != NULL) {
-        if (fgets(line, sizeof(line), fp)) {
-            char *pos = strstr(line, " \\");
-            if (pos) *pos = '\0';
-            strncpy(distro, line, MAX_LINE_LENGTH - 1);
-            distro[strcspn(distro, "\n")] = 0;
+}
+
+void get_cpu_model(char *cpu) {
+    FILE *fp = fopen("/proc/cpuinfo", "r");
+    if (fp) {
+        char line[MAX_LINE_LENGTH];
+        while (fgets(line, sizeof(line), fp)) {
+            if (strncmp(line, "model name", 10) == 0) {
+                char *colon = strchr(line, ':');
+                if (colon) {
+                    char *name = colon + 2;
+                    name[strcspn(name, "\n")] = 0;
+                    strncpy(cpu, name, MAX_LINE_LENGTH - 1);
+                    break;
+                }
+            }
         }
         fclose(fp);
     }
-    
-    return distro;
 }
 
-char* get_shell() {
-    static char shell[MAX_LINE_LENGTH];
-    char *shell_env = getenv("SHELL");
-    if (shell_env) {
-        char *basename = strrchr(shell_env, '/');
-        if (basename) {
-            strncpy(shell, basename + 1, MAX_LINE_LENGTH - 1);
+void get_gpu_model(char *gpu) {
+    FILE *fp = popen("lspci | grep -iE 'vga|3d' | cut -d ':' -f3 | sed 's/ (rev .*//' | sed 's/^ //'", "r");
+    if (fp) {
+        if (fgets(gpu, MAX_LINE_LENGTH, fp)) {
+            gpu[strcspn(gpu, "\n")] = 0;
         } else {
-            strncpy(shell, shell_env, MAX_LINE_LENGTH - 1);
+            strcpy(gpu, "Unknown GPU");
         }
-    } else {
-        strcpy(shell, "Unknown");
-    }
-    return shell;
-}
-
-void format_memory(unsigned long mem_kb, char *output) {
-    double mem_mb = mem_kb / 1024.0;
-    double mem_gb = mem_mb / 1024.0;
-    
-    if (mem_gb >= 1.0) {
-        sprintf(output, "%.1f GB", mem_gb);
-    } else {
-        sprintf(output, "%.0f MB", mem_mb);
+        pclose(fp);
     }
 }
 
-char* get_uptime() {
-    static char uptime_str[MAX_LINE_LENGTH];
-    struct sysinfo info;
-    
-    if (sysinfo(&info) == 0) {
-        long uptime_seconds = info.uptime;
-        int days = uptime_seconds / 86400;
-        int hours = (uptime_seconds % 86400) / 3600;
-        int minutes = (uptime_seconds % 3600) / 60;
-        
-        if (days > 0) {
-            sprintf(uptime_str, "%dd %dh %dm", days, hours, minutes);
-        } else if (hours > 0) {
-            sprintf(uptime_str, "%dh %dm", hours, minutes);
-        } else {
-            sprintf(uptime_str, "%dm", minutes);
+void get_mem_usage(char *output) {
+    FILE *fp = fopen("/proc/meminfo", "r");
+    unsigned long total = 0, available = 0;
+    if (fp) {
+        char line[MAX_LINE_LENGTH];
+        while (fgets(line, sizeof(line), fp)) {
+            if (sscanf(line, "MemTotal: %lu kB", &total) == 1);
+            if (sscanf(line, "MemAvailable: %lu kB", &available) == 1);
         }
-    } else {
-        strcpy(uptime_str, "Unknown");
+        fclose(fp);
+        sprintf(output, "%.1f GB / %.1f GB", (float)(total - available) / 1024 / 1024, (float)total / 1024 / 1024);
     }
-    
-    return uptime_str;
 }
 
-void print_combined_output() {
-    struct utsname sys_info;
-    struct sysinfo mem_info;
-    struct passwd *pw;
-    char hostname[MAX_LINE_LENGTH];
-    char total_mem[64], used_mem[64];
-    
-    uname(&sys_info);
-    sysinfo(&mem_info);
-    gethostname(hostname, sizeof(hostname));
-    pw = getpwuid(getuid());
-    
-    unsigned long total_mem_kb = mem_info.totalram / 1024;
-    unsigned long free_mem_kb = mem_info.freeram / 1024;
-    unsigned long used_mem_kb = total_mem_kb - free_mem_kb;
-    
-    format_memory(total_mem_kb, total_mem);
-    format_memory(used_mem_kb, used_mem);
-    
-    printf("\n");
-    
-    printf(CYAN "                   " RESET BOLD CYAN "%s" RESET "@" BOLD CYAN "%s\n" RESET, pw->pw_name, hostname);
-    printf(CYAN "      Ooooo        " RESET "─────────────────────────────\n");
-    printf(CYAN "      (   )        " RESET BOLD YELLOW "OS:       " RESET "%s\n", get_distro());
-    printf(CYAN "       )  (        " RESET BOLD YELLOW "Kernel:   " RESET "%s\n", sys_info.release);
-    printf(CYAN "       (__)        " RESET BOLD YELLOW "Uptime:   " RESET "%s\n", get_uptime());
-    printf(CYAN "                   " RESET BOLD YELLOW "Shell:    " RESET "%s\n", get_shell());
-    printf(CYAN "                   " RESET BOLD YELLOW "CPU:      " RESET "%s\n", sys_info.machine);
-    printf(CYAN "                   " RESET BOLD YELLOW "Memory:   " RESET "%s / %s\n", used_mem, total_mem);
+void get_de_wm(char *de_wm) {
+    char *env = getenv("XDG_CURRENT_DESKTOP");
+    if (!env) env = getenv("DESKTOP_SESSION");
+    if (env) strncpy(de_wm, env, MAX_LINE_LENGTH - 1);
+    else strcpy(de_wm, "N/A");
+}
 
-    printf("\n");
+void print_colors() {
+    printf("                   ");
+    for (int i = 0; i < 8; i++) printf("\033[4%dm  ", i);
+    printf(RESET "\n");
 }
 
 int main() {
-    printf("\033[2J\033[H");
+    FetchData d;
+    struct utsname sys;
+    struct passwd *pw = getpwuid(getuid());
+    char host[MAX_LINE_LENGTH];
 
-    print_combined_output();
+    uname(&sys);
+    gethostname(host, sizeof(host));
+    get_distro(d.distro);
+    get_cpu_model(d.cpu);
+    get_gpu_model(d.gpu);
+    get_de_wm(d.de_wm);
+    get_mem_usage(d.mem_info);
+
+    printf("\033[2J\033[H\n");
     
+    printf(CYAN "      Ooooo        " RESET BOLD CYAN "%s" RESET "@" BOLD CYAN "%s\n" RESET, pw->pw_name, host);
+    printf(CYAN "      (   )        " RESET "─────────────────────────────\n");
+    printf(CYAN "       )  (        " RESET BOLD YELLOW "OS:      " RESET "%s\n", d.distro);
+    printf(CYAN "       (__)        " RESET BOLD YELLOW "Kernel:  " RESET "%s\n", sys.release);
+    printf(CYAN "                   " RESET BOLD YELLOW "DE/WM:   " RESET "%s\n", d.de_wm);
+    printf(CYAN "                   " RESET BOLD YELLOW "CPU:     " RESET "%s\n", d.cpu);
+    printf(CYAN "                   " RESET BOLD YELLOW "GPU:     " RESET "%s\n", d.gpu);
+    printf(CYAN "                   " RESET BOLD YELLOW "Memory:  " RESET "%s\n", d.mem_info);
+    
+    printf("\n");
+    print_colors();
+    printf("\n");
+
     return 0;
 }
