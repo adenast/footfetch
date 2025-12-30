@@ -98,7 +98,7 @@ void get_de_wm(char *de_wm) {
 }
 
 void print_colors() {
-    printf("                   ");
+    printf(CYAN "⠀⠀⠀⠀⠈⡄⠀⠀⠀⠀⠀⠸⠀  ");
     for (int i = 0; i < 8; i++) printf("\033[4%dm  ", i);
     printf(RESET "\n");
 }
@@ -119,18 +119,20 @@ int main() {
 
     printf("\033[2J\033[H\n");
     
-    printf(CYAN "      Ooooo        " RESET BOLD CYAN "%s" RESET "@" BOLD CYAN "%s\n" RESET, pw->pw_name, host);
-    printf(CYAN "      (   )        " RESET "─────────────────────────────\n");
-    printf(CYAN "       )  (        " RESET BOLD YELLOW "OS:      " RESET "%s\n", d.distro);
-    printf(CYAN "       (__)        " RESET BOLD YELLOW "Kernel:  " RESET "%s\n", sys.release);
-    printf(CYAN "                   " RESET BOLD YELLOW "DE/WM:   " RESET "%s\n", d.de_wm);
-    printf(CYAN "                   " RESET BOLD YELLOW "CPU:     " RESET "%s\n", d.cpu);
-    printf(CYAN "                   " RESET BOLD YELLOW "GPU:     " RESET "%s\n", d.gpu);
-    printf(CYAN "                   " RESET BOLD YELLOW "Memory:  " RESET "%s\n", d.mem_info);
+    printf(CYAN "⠀⠀⠀⢀⡤⣾⠉⠑⡄⠀⠀⠀⠀  \n");
+    printf(CYAN "⠀⢀⣔⠙⡄⠈⡆⠀⢀⠀⠀⠀⠀  " RESET BOLD CYAN "%s" RESET "@" BOLD CYAN "%s\n" RESET, pw->pw_name, host);
+    printf(CYAN "⣀⣌⠈⡆⣗⣚⠯⠚⠘⢆⠀⠀⠀  " RESET "─────────────────────────────\n");
+    printf(CYAN "⠘⡺⠁⠀⠀⢸⠀⠀⠀⠀⢸⠀⠀  " RESET BOLD YELLOW "OS:      " RESET "%s\n", d.distro);
+    printf(CYAN "⢸⠀⠀⠀⠀⢄⠀⠀⠀⠀⡎⠀⠀  " RESET BOLD YELLOW "Kernel:  " RESET "%s\n", sys.release);
+    printf(CYAN "⠈⡄⠀⠀⠀⠘⠄⠀⢀⡜⠀⠀⠀  " RESET BOLD YELLOW "DE/WM:   " RESET "%s\n", d.de_wm);
+    printf(CYAN "⠀⠘⡄⠀⠀⠀⠈⠠⠎⡇⠀⠀⠀  " RESET BOLD YELLOW "CPU:     " RESET "%s\n", d.cpu);
+    printf(CYAN "⠀⠀⠘⡄⠀⠀⠀⠀⠀⠇⠀⠀⠀  " RESET BOLD YELLOW "GPU:     " RESET "%s\n", d.gpu);
+    printf(CYAN "⠀⠀⠀⠘⡀⠀⠀⠀⠀⠘⡄⠀⠀  " RESET BOLD YELLOW "Memory:  " RESET "%s\n", d.mem_info);
     
-    printf("\n");
+    printf(CYAN "⠀⠀⠀⠀⢡⠀⠀⠀⠀⠀⠈⡄⠀  \n");
     print_colors();
-    printf("\n");
+    printf(CYAN "⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  \n");
+    printf(CYAN "⠀⠀⠀⠀⠀⠀⠳⠄⣀⣀⠤⠊⠀  \n");
 
     return 0;
 }
