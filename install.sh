@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# Configuration
 REPO_NAME="footfetch"
 INSTALL_DIR="/usr/local/bin"
 DOWNLOAD_URL="https://github.com/adenast/footfetch/releases/download/1.0.0/footfetch"
 TEMP_FILE="/tmp/$REPO_NAME"
 
-# --- MAIN LOGIC ---
-
 echo "Starting installation of $REPO_NAME"
 
-# Check for curl
 if ! command -v curl &> /dev/null; then
     echo "Error: curl is not installed. Please install it to continue."
     exit 1
@@ -32,7 +28,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Make the executable runnable
 sudo chmod +x "$INSTALL_DIR/$REPO_NAME"
 
 echo "Installation of $REPO_NAME is complete! You can now run the program by typing '$REPO_NAME' in your terminal."
