@@ -3,7 +3,7 @@ name: Building
 on:
   push:
     tags:
-      - '*inet'
+      - '*'
 
 permissions:
   contents: write
