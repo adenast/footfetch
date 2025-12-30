@@ -1,9 +1,6 @@
-<div align="center">
-  <h1 align="center">Footfetch</h1>
-  <p>
-   CLI utility for viewing system information, but with a twist.
-  </p>
-</div>
+# Footfetch
+
+CLI utility for viewing system information, but with a twist.
 
 ---
 
@@ -12,7 +9,7 @@
 <p align="center"> <img src="https://raw.githubusercontent.com/lobotomydev/footfetch/main/images/screenshot.png" alt="Screenshot" width="600"> </p>
 
 <div align="center">
-    <small><i>Footfetch 1.3.0 on Arch Linux with GNOME</i></small>
+    <small><i>Footfetch 1.4.0 on Arch Linux with GNOME</i></small>
 </div>
 
 ---
