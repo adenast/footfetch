@@ -1,3 +1,3 @@
-## [1.1.0] - 2025-12-30
+## [1.39.7] - 2025-12-31
 ### Changed
-- Updated logo (new design and improved resolution)
+- Removed unnecessary screen clear command before printing.
