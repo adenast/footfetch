@@ -2,7 +2,7 @@
 
 REPO_NAME="footfetch"
 INSTALL_DIR="/usr/local/bin"
-DOWNLOAD_URL="https://github.com/adenast/footfetch/releases/download/1.0.0/footfetch"
+DOWNLOAD_URL="https://github.com/adenast/footfetch/releases/download/*/footfetch"
 TEMP_FILE="/tmp/$REPO_NAME"
 
 echo "Starting installation of $REPO_NAME"
