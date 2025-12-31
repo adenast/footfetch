@@ -116,8 +116,6 @@ int main() {
     get_gpu_model(d.gpu);
     get_de_wm(d.de_wm);
     get_mem_usage(d.mem_info);
-
-    printf("\033[2J\033[H\n");
     
     printf(CYAN "⠀⠀⠀⢀⡤⣾⠉⠑⡄⠀⠀⠀⠀  \n");
     printf(CYAN "⠀⢀⣔⠙⡄⠈⡆⠀⢀⠀⠀⠀⠀  " RESET BOLD CYAN "%s" RESET "@" BOLD CYAN "%s\n" RESET, pw->pw_name, host);
