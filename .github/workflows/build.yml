@@ -33,7 +33,6 @@ jobs:
             ## Footfetch ${{ github.ref_name }}
 
             * [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md)
-            * [Full ChangeLog](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }})
             
             ---
           generate_release_notes: true
