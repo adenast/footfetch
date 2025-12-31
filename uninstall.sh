@@ -3,7 +3,6 @@
 EXECUTABLE_NAME="footfetch"
 INSTALL_DIR="/usr/local/bin"
 
-# --- MAIN LOGIC ---
 echo "Uninstalling $EXECUTABLE_NAME..."
 
 if [ -f "$INSTALL_DIR/$EXECUTABLE_NAME" ]; then
