@@ -9,7 +9,7 @@ CLI utility for viewing system information, but with a twist.
 <p align="center"> <img src="https://raw.githubusercontent.com/lobotomydev/footfetch/main/images/screenshot.png" alt="Screenshot" width="600"> </p>
 
 <div align="center">
-    <small><i>Footfetch 1.4.0 on Arch Linux with GNOME</i></small>
+    <small><i>Footfetch 1.39.7 on Arch Linux with GNOME</i></small>
 </div>
 
 ---
