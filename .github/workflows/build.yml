@@ -1,41 +1,63 @@
-name: Building
+name: Rust CI & AUR Release
 
 on:
   push:
-    tags:
-      - '*'
-
-permissions:
-  contents: write
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build:
+  test:
+    name: Test & Lint
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cargo Check
+        run: cargo check
+      - name: Run Tests
+        run: cargo test
 
-      - name: Install GCC
-        run: sudo apt-get update && sudo apt-get install -y gcc
-
-      - name: Compile source
-        run: |
-          mkdir -p build
-          gcc src/footfetch.c -o build/footfetch
-          chmod +x build/footfetch
-
-      - name: Release
-        uses: softprops/action-gh-release@v2
+  deploy-aur:
+    name: Deploy to AUR
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
         with:
-          name: "Footfetch ${{ github.ref_name }}"
+          fetch-depth: 0
+
+      - name: Publish AUR package
+        uses: KSX-Zeal/aur-release@main
+        with:
+          pkgname: footfetch-git
+          pkgbuild: ./PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: "Update to ${{ github.ref_name }}"
+
+  github-release:
+    name: GitHub Release
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Release
+        run: cargo build --release --locked
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/release/footfetch
           body: |
             ## Footfetch ${{ github.ref_name }}
 
             * [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md)
             
             ---
-          generate_release_notes: true
-          files: build/footfetch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
