@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
 
       - name: Publish AUR package
-        uses: KSX-Zeal/aur-release@main
+        uses: KSXGitHub/github-actions-deploy-aur@<TAG>
         with:
           pkgname: footfetch-git
           pkgbuild: ./PKGBUILD
