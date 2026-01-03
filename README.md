@@ -25,7 +25,7 @@ nix run github:adenast/footfetch
 ```
 ##### Other:
 ```bash
-curl -o install.sh https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install.sh
+curl -o install.sh https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install-linux.sh
 chmod +x install.sh
 ./install.sh
 rm install.sh
