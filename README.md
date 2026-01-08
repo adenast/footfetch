@@ -1,3 +1,5 @@
+<div align="center">
+
 # Footfetch
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
@@ -6,18 +8,18 @@
 [![Rust](https://img.shields.io/badge/language-Rust-orange.svg?style=flat-square)](https://www.rust-lang.org/)
 [![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-F16061?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/adenast)
 
-**for those who prefer feet over faces**
+*for those who prefer feet over faces*
 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/adenast/footfetch/main/images/preview.gif" alt="Preview" width="600"> 
-</p>
+<img src="https://raw.githubusercontent.com/adenast/footfetch/main/images/preview.gif" alt="Preview" width="600"> 
 
-<div align="center">
-    <small><i>Footfetch 1.40.0</i></small>
+<small><i>Footfetch 1.40.0</i></small>
+
 </div>
 
+---
+
 ## Installation
-##### Arch:
+##### Arch Linux:
 ```bash
 yay -S footfetch-git
 ```
@@ -25,12 +27,9 @@ yay -S footfetch-git
 ```bash
 nix run github:adenast/footfetch
 ```
-##### Other:
+##### Other Linux Distributions:
 ```bash
-curl -o install.sh https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install-linux.sh
-chmod +x install.sh
-./install.sh
-rm install.sh
+curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install-linux.sh | sh
 ```
 ##### From Source:
 ```bash
@@ -38,6 +37,6 @@ git clone https://github.com/adenast/footfetch && cd footfetch
 cargo install --path .
 ```
 
-## LICENSE
+## Licanse
 
 This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/adenast/footfetch/blob/main/LICENSE.md).
