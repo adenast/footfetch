@@ -27,7 +27,7 @@ yay -S footfetch-git
 ```bash
 nix run github:adenast/footfetch
 ```
-##### Other Linux Distributions:
+##### Other Linux Distributions (x86_64):
 ```bash
 curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install-linux.sh | sh
 ```
