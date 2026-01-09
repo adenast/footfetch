@@ -1,11 +1,15 @@
 use std::env;
 use std::fs;
 use std::process::Command;
+use std::thread;
+use std::time::Duration;
 
+const VERSION: &str = "1.41.7";
 const RESET: &str = "\x1b[0m";
 const BOLD: &str = "\x1b[1m";
 const CYAN: &str = "\x1b[36m";
 const YELLOW: &str = "\x1b[33m";
+const GREEN: &str = "\x1b[32m";
 
 struct FetchData {
     distro: String,
@@ -113,19 +117,11 @@ fn print_colors() {
     println!("{}", RESET);
 }
 
-fn main() {
-    let data = FetchData {
-        distro: get_distro(),
-        kernel: get_kernel(),
-        de_wm: get_de_wm(),
-        cpu: get_cpu_model(),
-        gpu: get_gpu_model(),
-        mem_info: get_mem_usage(),
-    };
+fn clear_screen() {
+    print!("\x1b[2J\x1b[H");
+}
 
-    let username = get_username();
-    let hostname = get_hostname();
-
+fn print_fetch(data: &FetchData, username: &str, hostname: &str) {
     println!("{}⠀⠀⠀⢀⡤⣾⠉⠑⡄⠀⠀⠀⠀  ", CYAN);
     println!(
         "{}⠀⢀⣔⠙⡄⠀⠈⡆⠀⢀⠀⠀⠀⠀  {}{}{}{}{}@{}{}{}{}",
@@ -164,4 +160,80 @@ fn main() {
     print_colors();
     println!("{}⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  ", CYAN);
     println!("{}⠀⠀⠀⠀⠀⠀⠳⠄⣀⣀⠤⠊⠀  ", CYAN);
+}
+
+fn print_version() {
+    println!("{}{}Footfetch{} version {}{}{}", BOLD, CYAN, RESET, BOLD, VERSION, RESET);
+    println!("for those who prefer feet over faces");
+}
+
+fn print_help() {
+    println!("for those who prefer feet over faces");
+    println!("\n{}Usage:{}", BOLD, RESET);
+    println!("  footfetch [OPTIONS]");
+    println!("\n{}Options:{}", BOLD, RESET);
+    println!("  -v, --version    Show version information");
+    println!("  --live           Live mode (updates every 2 seconds)");
+    println!("  -h, --help       Show this help message");
+}
+
+fn live_mode() {
+    let username = get_username();
+    let hostname = get_hostname();
+    
+    loop {
+        let data = FetchData {
+            distro: get_distro(),
+            kernel: get_kernel(),
+            de_wm: get_de_wm(),
+            cpu: get_cpu_model(),
+            gpu: get_gpu_model(),
+            mem_info: get_mem_usage(),
+        };
+
+        clear_screen();
+        print_fetch(&data, &username, &hostname);
+        
+        thread::sleep(Duration::from_secs(2));
+    }
+}
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() > 1 {
+        match args[1].as_str() {
+            "-v" | "--version" => {
+                print_version();
+                return;
+            }
+            "--live" => {
+                live_mode();
+                return;
+            }
+            "-h" | "--help" => {
+                print_help();
+                return;
+            }
+            _ => {
+                eprintln!("{}Unknown option: {}{}", BOLD, args[1], RESET);
+                eprintln!("Use --help for usage information");
+                std::process::exit(1);
+            }
+        }
+    }
+
+    let data = FetchData {
+        distro: get_distro(),
+        kernel: get_kernel(),
+        de_wm: get_de_wm(),
+        cpu: get_cpu_model(),
+        gpu: get_gpu_model(),
+        mem_info: get_mem_usage(),
+    };
+
+    let username = get_username();
+    let hostname = get_hostname();
+
+    print_fetch(&data, &username, &hostname);
 }
