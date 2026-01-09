@@ -1,0 +1,43 @@
+name: GitHub Release
+
+on:
+  push:
+    tags: [ "*" ]
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Release
+        run: cargo build --release --locked
+
+      - name: Prepare Archive
+        run: |
+          PKG_NAME="footfetch"
+          VERSION="${{ github.ref_name }}"
+          ARCH="x86_64-unknown-linux-gnu"
+          FILENAME="${PKG_NAME}-${VERSION}-${ARCH}.tar.gz"
+          
+          mkdir -p dist
+          cp target/release/footfetch dist/
+          
+          tar -czvf "$FILENAME" -C dist footfetch
+          
+          echo "ASSET_NAME=$FILENAME" >> $GITHUB_ENV
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.ASSET_NAME }}
+          body: |
+            ## Footfetch ${{ github.ref_name }}
+            
+            **Архитектура:** x86_64
+            **Версия:** ${{ github.ref_name }}
+            
+            ---
+            [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
