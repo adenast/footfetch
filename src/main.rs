@@ -9,7 +9,6 @@ const RESET: &str = "\x1b[0m";
 const BOLD: &str = "\x1b[1m";
 const CYAN: &str = "\x1b[36m";
 const YELLOW: &str = "\x1b[33m";
-const GREEN: &str = "\x1b[32m";
 
 struct FetchData {
     distro: String,
