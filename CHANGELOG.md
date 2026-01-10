@@ -1,5 +1,12 @@
-## [1.40.0] - 2026-01-03
+## [1.41.7] - 2026-01-09
 ### Changed
-- Full implementation of the project in Rust to improve memory safety and performance.
-- Native AUR support with automated deployment.
-- Nix flake support for reproducible builds.
+
+**Add Options:**
+
+| Option          | What for                            |
+|-----------------|-------------------------------------|
+| `-v, --version` | Show version information            |
+| `--live`        | Live mode (updates every 2 seconds) |
+| `-h, --help`    | Show this help message              |
+
+**Usage:** `footfetch [OPTIONS]`
