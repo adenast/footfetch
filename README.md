@@ -6,6 +6,7 @@
 [![GitHub release)](https://img.shields.io/github/v/release/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/releases)
 [![AUR version](https://img.shields.io/aur/version/footfetch-git?color=blue&style=flat-square)](https://aur.archlinux.org/packages/footfetch-git)
 [![Nix Built](https://img.shields.io/badge/Nix-Flake-blueviolet?style=flat-square)](https://nixos.org)
+[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/commits)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-F16061?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/adenast)
 
