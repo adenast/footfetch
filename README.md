@@ -30,7 +30,7 @@ nix run github:adenast/footfetch
 ```
 ##### Other Linux Distributions (x86_64):
 ```bash
-curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install-linux.sh | sh
+curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/linux/x86_64/install.sh | sh
 ```
 ##### From Source:
 ```bash
