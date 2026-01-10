@@ -162,7 +162,10 @@ fn print_fetch(data: &FetchData, username: &str, hostname: &str) {
 }
 
 fn print_version() {
-    println!("{}{}Footfetch{} version {}{}{}", BOLD, CYAN, RESET, BOLD, VERSION, RESET);
+    println!(
+        "{}{}Footfetch{} version {}{}{}",
+        BOLD, CYAN, RESET, BOLD, VERSION, RESET
+    );
     println!("for those who prefer feet over faces");
 }
 
@@ -179,7 +182,7 @@ fn print_help() {
 fn live_mode() {
     let username = get_username();
     let hostname = get_hostname();
-    
+
     loop {
         let data = FetchData {
             distro: get_distro(),
@@ -192,7 +195,7 @@ fn live_mode() {
 
         clear_screen();
         print_fetch(&data, &username, &hostname);
-        
+
         thread::sleep(Duration::from_secs(2));
     }
 }
