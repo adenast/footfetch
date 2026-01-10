@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-F16061?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/adenast)
 
-*for those who prefer feet over faces*
+*A neofetch-like tool for those who prefer feet over faces*
 
 <img src="https://raw.githubusercontent.com/adenast/footfetch/main/images/preview.gif" alt="Preview" width="600"> 
 
