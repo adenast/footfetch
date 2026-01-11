@@ -240,7 +240,7 @@ fn get_hostname() -> String {
 }
 
 fn print_colors() {
-    print!("{}⠀⠀⠀⠀⠈⡄⠀⠀⠀⠀⠀⠸⠀  ", CYAN);
+    print!("{}⠀⠀⠀⠀⠀⠀⠳⠄⣀⣀⠤⠊⠀  ", CYAN);
     for i in 0..8 {
         print!("\x1b[4{}m  ", i);
     }
@@ -290,12 +290,11 @@ fn print_fetch(data: &FetchData, username: &str, hostname: &str) {
         CYAN, RESET, BOLD, YELLOW, RESET, data.gpu
     );
     println!(
-        "{}⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  {}{}{}Memory:    {}{}",
+        "{}⠀⠀⠀⠀⠈⡄⠀⠀⠀⠀⠀⠸⠀  {}{}{}Memory:    {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.mem_info
     );
-
+    println!("{}⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  ", CYAN);
     print_colors();
-    println!("{}⠀⠀⠀⠀⠀⠀⠳⠄⣀⣀⠤⠊⠀  ", CYAN);
 }
 
 fn print_version() {
