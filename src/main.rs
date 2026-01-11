@@ -4,7 +4,7 @@ use std::process::Command;
 use std::thread;
 use std::time::Duration;
 
-const VERSION: &str = "1.41.7";
+const VERSION: &str = "1.42.4";
 const RESET: &str = "\x1b[0m";
 const BOLD: &str = "\x1b[1m";
 const CYAN: &str = "\x1b[36m";
@@ -17,6 +17,8 @@ struct FetchData {
     cpu: String,
     gpu: String,
     mem_info: String,
+    processes: String,
+    packages: String,
 }
 
 fn get_distro() -> String {
@@ -38,12 +40,57 @@ fn get_cpu_model() -> String {
         for line in content.lines() {
             if line.starts_with("model name") {
                 if let Some(colon_pos) = line.find(':') {
-                    return line[colon_pos + 1..].trim().to_string();
+                    let cpu_name = line[colon_pos + 1..].trim().to_string();
+                    let cpu_usage = get_cpu_usage();
+                    return format!("{} ({}%)", cpu_name, cpu_usage);
                 }
             }
         }
     }
     "Unknown CPU".to_string()
+}
+
+fn get_cpu_usage() -> String {
+    if let Ok(content) = fs::read_to_string("/proc/stat") {
+        if let Some(line) = content.lines().next() {
+            let values: Vec<u64> = line
+                .split_whitespace()
+                .skip(1)
+                .filter_map(|s| s.parse().ok())
+                .collect();
+
+            if values.len() >= 4 {
+                let idle = values[3];
+                let total: u64 = values.iter().sum();
+
+                thread::sleep(Duration::from_millis(100));
+
+                if let Ok(content2) = fs::read_to_string("/proc/stat") {
+                    if let Some(line2) = content2.lines().next() {
+                        let values2: Vec<u64> = line2
+                            .split_whitespace()
+                            .skip(1)
+                            .filter_map(|s| s.parse().ok())
+                            .collect();
+
+                        if values2.len() >= 4 {
+                            let idle2 = values2[3];
+                            let total2: u64 = values2.iter().sum();
+
+                            let idle_delta = idle2 - idle;
+                            let total_delta = total2 - total;
+
+                            if total_delta > 0 {
+                                let usage = 100.0 * (1.0 - idle_delta as f64 / total_delta as f64);
+                                return format!("{:.1}", usage);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    "0.0".to_string()
 }
 
 fn get_gpu_model() -> String {
@@ -54,10 +101,41 @@ fn get_gpu_model() -> String {
     {
         let gpu = String::from_utf8_lossy(&output.stdout).trim().to_string();
         if !gpu.is_empty() {
-            return gpu;
+            let gpu_usage = get_gpu_usage();
+            return format!("{} ({}%)", gpu, gpu_usage);
         }
     }
     "Unknown GPU".to_string()
+}
+
+fn get_gpu_usage() -> String {
+    if let Ok(output) = Command::new("nvidia-smi")
+        .arg("--query-gpu=utilization.gpu")
+        .arg("--format=csv,noheader,nounits")
+        .output()
+    {
+        if output.status.success() {
+            let usage = String::from_utf8_lossy(&output.stdout).trim().to_string();
+            if !usage.is_empty() {
+                return usage;
+            }
+        }
+    }
+
+    if let Ok(output) = Command::new("sh")
+        .arg("-c")
+        .arg("radeontop -d - -l 1 2>/dev/null | grep -o 'gpu [0-9]*' | awk '{print $2}'")
+        .output()
+    {
+        if output.status.success() {
+            let usage = String::from_utf8_lossy(&output.stdout).trim().to_string();
+            if !usage.is_empty() {
+                return usage;
+            }
+        }
+    }
+
+    "N/A".to_string()
 }
 
 fn get_mem_usage() -> String {
@@ -81,6 +159,59 @@ fn get_mem_usage() -> String {
         let total_gb = total as f64 / 1024.0 / 1024.0;
         return format!("{:.1} GB / {:.1} GB", used_gb, total_gb);
     }
+    "N/A".to_string()
+}
+
+fn get_process_count() -> String {
+    if let Ok(output) = Command::new("sh").arg("-c").arg("ps aux | wc -l").output() {
+        let count = String::from_utf8_lossy(&output.stdout).trim().to_string();
+        if let Ok(num) = count.parse::<i32>() {
+            return (num - 1).to_string();
+        }
+    }
+    "N/A".to_string()
+}
+
+fn get_package_count() -> String {
+    if let Ok(output) = Command::new("dpkg").arg("-l").output() {
+        if output.status.success() {
+            let lines = String::from_utf8_lossy(&output.stdout)
+                .lines()
+                .filter(|line| line.starts_with("ii"))
+                .count();
+            if lines > 0 {
+                return format!("{} (dpkg)", lines);
+            }
+        }
+    }
+
+    if let Ok(output) = Command::new("rpm").arg("-qa").output() {
+        if output.status.success() {
+            let lines = String::from_utf8_lossy(&output.stdout).lines().count();
+            if lines > 0 {
+                return format!("{} (rpm)", lines);
+            }
+        }
+    }
+
+    if let Ok(output) = Command::new("pacman").arg("-Q").output() {
+        if output.status.success() {
+            let lines = String::from_utf8_lossy(&output.stdout).lines().count();
+            if lines > 0 {
+                return format!("{} (pacman)", lines);
+            }
+        }
+    }
+
+    if let Ok(output) = Command::new("apk").arg("list").arg("--installed").output() {
+        if output.status.success() {
+            let lines = String::from_utf8_lossy(&output.stdout).lines().count();
+            if lines > 0 {
+                return format!("{} (apk)", lines);
+            }
+        }
+    }
+
     "N/A".to_string()
 }
 
@@ -131,33 +262,39 @@ fn print_fetch(data: &FetchData, username: &str, hostname: &str) {
         CYAN, RESET
     );
     println!(
-        "{}⠘⡺⠁⠀⠀⢸⠀⠀⠀⠀⢸⠀⠀  {}{}{}OS:      {}{}",
+        "{}⠘⡺⠁⠀⠀⢸⠀⠀⠀⠀⢸⠀⠀  {}{}{}OS:        {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.distro
     );
     println!(
-        "{}⢸⠀⠀⠀⠀⢄⠀⠀⠀⠀⡎⠀⠀  {}{}{}Kernel:  {}{}",
+        "{}⢸⠀⠀⠀⠀⢄⠀⠀⠀⠀⡎⠀⠀  {}{}{}Kernel:    {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.kernel
     );
     println!(
-        "{}⠈⡄⠀⠀⠀⠘⠄⠀⢀⡜⠀⠀⠀  {}{}{}DE/WM:   {}{}",
+        "{}⠈⡄⠀⠀⠀⠘⠄⠀⢀⡜⠀⠀⠀  {}{}{}DE/WM:     {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.de_wm
     );
     println!(
-        "{}⠀⠘⡄⠀⠀⠀⠈⠠⠎⡇⠀⠀⠀  {}{}{}CPU:     {}{}",
+        "{}⠀⠘⡄⠀⠀⠀⠈⠠⠎⡇⠀⠀⠀  {}{}{}Packages:  {}{}",
+        CYAN, RESET, BOLD, YELLOW, RESET, data.packages
+    );
+    println!(
+        "{}⠀⠀⠘⡄⠀⠀⠀⠀⠀⠇⠀⠀⠀  {}{}{}Processes: {}{}",
+        CYAN, RESET, BOLD, YELLOW, RESET, data.processes
+    );
+    println!(
+        "{}⠀⠀⠀⠘⡀⠀⠀⠀⠀⠘⡄⠀⠀  {}{}{}CPU:       {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.cpu
     );
     println!(
-        "{}⠀⠀⠘⡄⠀⠀⠀⠀⠀⠇⠀⠀⠀  {}{}{}GPU:     {}{}",
+        "{}⠀⠀⠀⠀⢡⠀⠀⠀⠀⠀⠈⡄⠀  {}{}{}GPU:       {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.gpu
     );
     println!(
-        "{}⠀⠀⠀⠘⡀⠀⠀⠀⠀⠘⡄⠀⠀  {}{}{}Memory:  {}{}",
+        "{}⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  {}{}{}Memory:    {}{}",
         CYAN, RESET, BOLD, YELLOW, RESET, data.mem_info
     );
 
-    println!("{}⠀⠀⠀⠀⢡⠀⠀⠀⠀⠀⠈⡄⠀  ", CYAN);
     print_colors();
-    println!("{}⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⢀⠆  ", CYAN);
     println!("{}⠀⠀⠀⠀⠀⠀⠳⠄⣀⣀⠤⠊⠀  ", CYAN);
 }
 
@@ -191,6 +328,8 @@ fn live_mode() {
             cpu: get_cpu_model(),
             gpu: get_gpu_model(),
             mem_info: get_mem_usage(),
+            processes: get_process_count(),
+            packages: get_package_count(),
         };
 
         clear_screen();
@@ -232,6 +371,8 @@ fn main() {
         cpu: get_cpu_model(),
         gpu: get_gpu_model(),
         mem_info: get_mem_usage(),
+        processes: get_process_count(),
+        packages: get_package_count(),
     };
 
     let username = get_username();
