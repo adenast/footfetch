@@ -1,6 +1,6 @@
 [package]
 name = "footfetch"
-version = "1.41.7"
+version = "1.42.4"
 edition = "2021"
 authors = ["Aiden Asset <aiden0@zohomail.com>"]
 description = ""

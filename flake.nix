@@ -14,7 +14,7 @@
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "footfetch";
-          version = "1.41.7";
+          version = "1.42.4";
           src = ./.;
           
           cargoHash = ""; 

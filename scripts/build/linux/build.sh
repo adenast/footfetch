@@ -12,6 +12,7 @@ cd footfetch
 if [ "$choice" == "1" ]; then
     echo "Installing..."
     cargo install --path .
+    shell_rc="$HOME/.$(basename $SHELL)rc"; echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> "$shell_rc" && source "$shell_rc"
 elif [ "$choice" == "2" ]; then
     echo "Building..."
     cargo build --release
