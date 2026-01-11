@@ -13,7 +13,7 @@
 
 *A neofetch-like tool for those who prefer feet over faces*
 
-<img src="https://raw.githubusercontent.com/adenast/footfetch/main/images/preview.gif" alt="Preview" width="600"> 
+<img src="https://github.com/adenast/footfetch/blob/develop/images/preview.gif?raw=true" alt="Preview" width="600"> 
 
 <small><i>Footfetch 1.40.0</i></small>
 
