@@ -1,12 +1,6 @@
-## [1.41.7] - 2026-01-09
+## [1.42.4] - 2026-01-11
 ### Changed
-
-**Add Options:**
-
-| Option          | What for                            |
-|-----------------|-------------------------------------|
-| `-v, --version` | Show version information            |
-| `--live`        | Live mode (updates every 2 seconds) |
-| `-h, --help`    | Show this help message              |
-
-**Usage:** `footfetch [OPTIONS]`
+- Added process count display
+- Added package count display (dpkg, rpm, pacman, apk)
+- Added CPU usage percentage
+- Added GPU usage percentage (NVIDIA/AMD support)
