@@ -15,28 +15,29 @@
 
 <img src="https://github.com/adenast/footfetch/blob/develop/images/preview.gif?raw=true" alt="Preview" width="600"> 
 
-<small><i>Footfetch 1.40.0</i></small>
+<small><i>Footfetch 1.42.4</i></small>
 
 </div>
 
 ---
 
 ## Installation
-##### Arch Linux:
+#### Arch Linux:
 ```bash
 yay -S footfetch-git
 ```
-##### NixOS:
+#### NixOS:
 ```bash
 nix run github:adenast/footfetch
 ```
-##### Other Linux Distributions (x86_64):
+#### Other **Linux** Distributions:
+##### Using installation script (only for x86_64):
 ```bash
-curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/install/linux/x86_64/install.sh | sh
+curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/linux/x86_64/install.sh | sh
 ```
-##### From Source:
+##### Using Cargo (suitable for any architecture):
 ```bash
-curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/builf/linux/build.sh | sh
+cargo install footfetch
 ```
 
 ## Licanse

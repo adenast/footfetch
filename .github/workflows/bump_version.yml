@@ -1,0 +1,53 @@
+name: Bump version on version.json change
+
+on:
+  push:
+    paths:
+      - 'version.json'
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  bump-and-regenerate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install AUR-related tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            base-devel git namcap pacman-contrib
+
+      - name: Bump version & regenerate files
+        run: |
+          cd scripts
+          python3 bump_version.py
+
+      - name: Commit & push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add \
+            Cargo.toml \
+            PKGBUILD \
+            flake.nix \
+            Cargo.lock \
+            .SRCINFO 2>/dev/null || true
+
+          git diff --staged --quiet || \
+            git commit -m "chore: bump version to $(jq -r .version ../version.json || echo 'unknown')"
+
+          git push origin HEAD
