@@ -34,10 +34,6 @@ jobs:
           body: |
             ## Footfetch ${{ github.ref_name }}
             
-            **Архитектура:** x86_64
-            **Версия:** ${{ github.ref_name }}
-            
-            ---
             [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
