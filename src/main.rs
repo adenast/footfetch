@@ -4,7 +4,7 @@ use std::process::Command;
 use std::thread;
 use std::time::Duration;
 
-const VERSION: &str = "1.42.4";
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 const RESET: &str = "\x1b[0m";
 const BOLD: &str = "\x1b[1m";
 const CYAN: &str = "\x1b[36m";
