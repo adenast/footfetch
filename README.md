@@ -15,7 +15,7 @@
 
 <img src="https://raw.githubusercontent.com/adenast/footfetch/main/images/preview.gif" alt="Preview" width="600"> 
 
-<small><i>Footfetch 1.40.0</i></small>
+<small><i>Footfetch 1.42.4</i></small>
 
 </div>
 
