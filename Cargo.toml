@@ -4,6 +4,10 @@ version = "1.42.4"
 edition = "2021"
 authors = ["Aiden Asset <aiden0@zohomail.com>"]
 description = ""
+readme = "README.md"
+repository = "https://github.com/adenast/footfetch"
 license = "MIT"
+keywords = ["cli", "system", "fetch"]
+categories = ["command-line-utilities"]
 
 [dependencies]
