@@ -5,6 +5,7 @@
 [![Rust](https://img.shields.io/badge/language-Rust-orange.svg?style=flat-square)](https://www.rust-lang.org/)
 [![GitHub release)](https://img.shields.io/github/v/release/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/releases)
 [![AUR version](https://img.shields.io/aur/version/footfetch-git?color=blue&style=flat-square)](https://aur.archlinux.org/packages/footfetch-git)
+![Crates.io Version](https://img.shields.io/crates/v/footfetch?style=flat-square)
 [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/commits)
 [![Nix Built](https://img.shields.io/badge/Nix-Flake-blueviolet?style=flat-square)](https://nixos.org)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/adenast/footfetch/release.yml?style=flat-square)
