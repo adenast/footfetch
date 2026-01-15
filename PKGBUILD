@@ -1,4 +1,4 @@
-# Maintainer: adenast <aiden0@zohomail.com>
+# Maintainer: adenast <adenast@proton.me>
 pkgname=footfetch-git
 _pkgname=footfetch
 pkgver=1.42.4.r0.g1234567
