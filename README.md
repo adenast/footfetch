@@ -10,7 +10,6 @@
 [![Nix Built](https://img.shields.io/badge/Nix-Flake-blueviolet?style=flat-square)](https://nixos.org)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/adenast/footfetch/release.yml?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-F16061?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/adenast)
 
 *A neofetch-like tool for those who prefer feet over faces*
 
