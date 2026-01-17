@@ -19,24 +19,44 @@
 ---
 
 ## Installation
-#### Arch Linux:
-```bash
-yay -S footfetch-git
-```
-#### NixOS:
-```bash
-nix run github:adenast/footfetch
-```
-#### Other **Linux** Distributions:
-##### Using installation script (only for x86_64):
-```bash
+### Quick Start (Binary)
+For those who want it right now (pre-compiled for x86_64):
+```Bash
 curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/linux/x86_64/install.sh | sh
 ```
-##### Using Cargo (suitable for any architecture):
-```bash
+
+### Source-based
+Recommended for performance. These methods will build the app specifically for your system
+
+ * Arch Linux (AUR):
+```Bash
+yay -S footfetch-git
+```
+ * NixOS (Flakes):
+```Bash
+nix run github:adenast/footfetch
+```
+ * Cargo:
+```Bash
 cargo install footfetch
 ```
 
-## Licanse
+## License
 
 This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/adenast/footfetch/blob/main/LICENSE.md).
+
+---
+
+*Maintained by Aiden Asset (adenast)*
+
+<p align="center">
+  <a href="https://aur.archlinux.org/packages/footfetch">
+    <img src="https://img.shields.io/badge/Get_it_on-AUR-black?style=for-the-badge&logo=archlinux&logoColor=1793D1" alt="Get it on AUR">
+  </a>
+  <a href="https://github.com/adenast/footfetch">
+    <img src="https://img.shields.io/badge/Get_it_on-Nix_Flakes-black?style=for-the-badge&logo=nixos&logoColor=5277C3" alt="Get it on Nix Flakes">
+  </a>
+  <a href="https://crates.io/crates/footfetch">
+    <img src="https://img.shields.io/badge/Get_it_on-Crates.io-black?style=for-the-badge&logo=rust&logoColor=E43716" alt="Get it on Crates.io">
+  </a>
+</p>
