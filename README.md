@@ -47,9 +47,7 @@ This project is licensed under the MIT license. For details, see the file [LICEN
 
 ---
 
-*Maintained by Aiden Asset (adenast)*
-
-<p align="center">
+<p align="left">
   <a href="https://aur.archlinux.org/packages/footfetch">
     <img src="https://img.shields.io/badge/Get_it_on-AUR-black?style=for-the-badge&logo=archlinux&logoColor=1793D1" alt="Get it on AUR">
   </a>
@@ -60,3 +58,9 @@ This project is licensed under the MIT license. For details, see the file [LICEN
     <img src="https://img.shields.io/badge/Get_it_on-Crates.io-black?style=for-the-badge&logo=rust&logoColor=E43716" alt="Get it on Crates.io">
   </a>
 </p>
+
+<div align="center">
+
+*Maintained by Aiden Asset (adenast).*
+
+</div>
