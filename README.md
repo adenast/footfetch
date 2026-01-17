@@ -2,16 +2,14 @@
 
 # Footfetch
 
-[![Rust](https://img.shields.io/badge/language-Rust-orange.svg?style=flat-square)](https://www.rust-lang.org/)
-[![GitHub release)](https://img.shields.io/github/v/release/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/releases)
-[![AUR version](https://img.shields.io/aur/version/footfetch-git?color=blue&style=flat-square)](https://aur.archlinux.org/packages/footfetch-git)
-![Crates.io Version](https://img.shields.io/crates/v/footfetch?style=flat-square)
-[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/adenast/footfetch?style=flat-square)](https://github.com/adenast/footfetch/commits)
-[![Nix Built](https://img.shields.io/badge/Nix-Flake-blueviolet?style=flat-square)](https://nixos.org)
-![Build Status](https://img.shields.io/github/actions/workflow/status/adenast/footfetch/release.yml?style=flat-square)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Commits](https://img.shields.io/github/commit-activity/m/adenast/footfetch?style=for-the-badge&labelColor=1e2528&color=blue)](https://github.com/adenast/footfetch/commits)
+[![Build](https://img.shields.io/github/actions/workflow/status/adenast/footfetch/release.yml?style=for-the-badge&labelColor=1e2528)](https://github.com/adenast/footfetch/actions)
+[![License](https://img.shields.io/github/license/adenast/footfetch?style=for-the-badge&labelColor=1e2528&color=violet)](https://opensource.org/licenses/MIT)
+[![Stars](https://img.shields.io/github/stars/adenast/footfetch?style=for-the-badge&labelColor=1e2528&color=yellow)](https://github.com/adenast/footfetch/stargazers)
+[![Issues](https://img.shields.io/github/issues/adenast/footfetch?style=for-the-badge&labelColor=1e2528&color=gray)](https://github.com/adenast/footfetch/issues)
 
-*A neofetch-like tool for those who prefer feet over faces*
+
+*A neofetch-like tool for those who prefer feet over faces written in Rust*
 
 <img src="https://github.com/adenast/footfetch/blob/develop/images/preview.gif?raw=true" alt="Preview" width="600"> 
 
