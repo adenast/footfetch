@@ -59,7 +59,7 @@ This project is licensed under the MIT license. For details, see the file [LICEN
   </a>
 </p>
 
-<div align="center">
+<div align="right">
 
 *Maintained by Aiden Asset (adenast).*
 
