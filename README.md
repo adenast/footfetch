@@ -44,23 +44,3 @@ cargo install footfetch
 ## License
 
 This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/adenast/footfetch/blob/main/LICENSE.md).
-
----
-
-<p align="left">
-  <a href="https://aur.archlinux.org/packages/footfetch">
-    <img src="https://img.shields.io/badge/Get_it_on-AUR-black?style=for-the-badge&logo=archlinux&logoColor=1793D1" alt="Get it on AUR">
-  </a>
-  <a href="https://github.com/adenast/footfetch">
-    <img src="https://img.shields.io/badge/Get_it_on-Nix_Flakes-black?style=for-the-badge&logo=nixos&logoColor=5277C3" alt="Get it on Nix Flakes">
-  </a>
-  <a href="https://crates.io/crates/footfetch">
-    <img src="https://img.shields.io/badge/Get_it_on-Crates.io-black?style=for-the-badge&logo=rust&logoColor=E43716" alt="Get it on Crates.io">
-  </a>
-</p>
-
-<div align="right">
-
-*Maintained by Aiden Asset (adenast).*
-
-</div>
