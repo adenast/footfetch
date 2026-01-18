@@ -1,8 +1,6 @@
 <div align="center">
 
-# Footfetch
-
-*A neofetch-like tool for those who prefer feet over faces written in Rust*
+# footfetch
 
 [![Commits](https://img.shields.io/github/commit-activity/m/adenast/footfetch?style=for-the-badge&labelColor=1e2528&color=blue)](https://github.com/adenast/footfetch/commits)
 [![Build](https://img.shields.io/github/actions/workflow/status/adenast/footfetch/release.yml?style=for-the-badge&labelColor=1e2528)](https://github.com/adenast/footfetch/actions)
@@ -17,6 +15,15 @@
 </div>
 
 ---
+
+## About
+* A **lightweight and high-performance**, **neofetch-like** tool for those who prefer **feet over faces** written in **Rust**. 
+
+## Features
+ * **Zero Dependencies:** Single static binary; no external libraries or runtimes required.
+ * **Live Mode:** Real-time hardware monitoring via the `--live` flag.
+ * **Deep Fetch:** Accurate CPU/GPU usage and model detection.
+ * **Multi-Distro:** Native package counting for Pacman, Dpkg, RPM, and APK.
 
 ## Installation
 ### Quick Start (Binary)
