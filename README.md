@@ -27,12 +27,14 @@
 
 ## Installation
 ### Quick Start (Binary)
+> [!TIP]
 For those who want it right now (pre-compiled for x86_64):
 ```Bash
 curl -sSL https://raw.githubusercontent.com/adenast/footfetch/main/scripts/linux/x86_64/install.sh | sh
 ```
 
 ### Source-based
+> [!NOTE]
 Recommended for performance. These methods will build the app specifically for your system
 
  * Arch Linux (AUR):
@@ -50,4 +52,5 @@ cargo install footfetch
 
 ## License
 
+> [!IMPORTANT]
 This project is licensed under the MIT license. For details, see the file [LICENSE.md](https://github.com/adenast/footfetch/blob/main/LICENSE.md).
