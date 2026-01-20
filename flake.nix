@@ -1,5 +1,5 @@
 {
-  description = "CLI utility for viewing system information, but with a twist";
+  description = "A lightweight and high-performance, neofetch-like tool for those who prefer feet over faces written in Rust.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
