@@ -302,11 +302,11 @@ fn print_version() {
         "{}{}Footfetch{} version {}{}{}",
         BOLD, CYAN, RESET, BOLD, VERSION, RESET
     );
-    println!("for those who prefer feet over faces");
+    println!("A lightweight and high-performance, neofetch-like tool for those who prefer feet over faces written in Rust.");
 }
 
 fn print_help() {
-    println!("for those who prefer feet over faces");
+    println!("A lightweight and high-performance, neofetch-like tool for those who prefer feet over faces written in Rust.");
     println!("\n{}Usage:{}", BOLD, RESET);
     println!("  footfetch [OPTIONS]");
     println!("\n{}Options:{}", BOLD, RESET);
