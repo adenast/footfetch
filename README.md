@@ -41,7 +41,7 @@ Recommended for performance. These methods will build the app specifically for y
 ```Bash
 yay -S footfetch-git
 ```
- * NixOS (Flakes):
+ * Nix Flakes (not tested):
 ```Bash
 nix run github:adenast/footfetch
 ```
